@@ -8,6 +8,18 @@
 <body>
     <h1>Products</h1>
 
+    <h3>Categories</h3>
+
+    <a href="{{ route('products.index') }}">All</a>
+
+    @foreach ($categories as $category)
+        <a href="{{ route('products.index', ['category' => $category->slug]) }}">
+            {{ $category->name }}
+        </a>
+    @endforeach
+
+    <hr>
+
     @foreach ($products as $product)
         <div>
             <h2>
@@ -23,5 +35,9 @@
 
         <hr>
     @endforeach
+
+    @if ($products->isEmpty())
+        <p>No products found.</p>
+    @endif
 </body>
 </html>
