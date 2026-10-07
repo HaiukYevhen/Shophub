@@ -29,5 +29,33 @@
         <strong>Stock:</strong>
         {{ $product->stock }}
     </p>
+
+    @if ($product->stock > 0)
+        @auth
+            <form method="POST" action="{{ route('cart.add', $product) }}">
+                @csrf
+
+                <label for="quantity">Quantity:</label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="{{ $product->stock }}"
+                >
+
+                <button type="submit">Add to Cart</button>
+            </form>
+        @else
+            <p>
+                <a href="{{ route('login') }}">Log in</a>
+                to add this product to your cart.
+            </p>
+        @endauth
+    @else
+        <p>Out of stock.</p>
+    @endif
 </body>
 </html>
