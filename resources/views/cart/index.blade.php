@@ -56,6 +56,9 @@
 
             <hr>
         @endforeach
+
+        <a href="{{ route('orders.create') }}">Proceed to Checkout</a>
+        
     @endif
 </body>
 </html>
