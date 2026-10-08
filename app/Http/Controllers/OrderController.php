@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::where('user_id', auth()->id())
+            ->with('items.product')
+            ->latest()
+            ->get();
+
+        return view('orders.index', compact('orders'));
+    }
+
     public function create()
     {
         $cartItems = CartItem::where('user_id', auth()->id())
