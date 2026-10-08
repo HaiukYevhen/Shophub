@@ -4,6 +4,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +19,14 @@ Route::get('/dashboard', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name('products.show');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+    Route::resource('/admin/categories', CategoryController::class)
+        ->except(['show'])
+        ->names('admin.categories');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
