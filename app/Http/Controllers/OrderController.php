@@ -51,6 +51,25 @@ class OrderController extends Controller
                 ->route('cart.index')
                 ->with('error', 'Your cart is empty.');
         }
+        foreach ($cartItems as $cartItem) {
+            if (!$cartItem->product->is_active) {
+                return redirect()
+                    ->route('cart.index')
+                    ->with(
+                        'error',
+                        "Товар «{$cartItem->product->name}» більше недоступний. Видаліть його з кошика, щоб продовжити."
+                    );
+            }
+
+            if ($cartItem->product->stock < $cartItem->quantity) {
+                return redirect()
+                    ->route('cart.index')
+                    ->with(
+                        'error',
+                        "Товар «{$cartItem->product->name}» має недостатню кількість на складі. Оновіть кількість у кошику."
+                    );
+            }
+        }
 
         DB::transaction(function () use ($validated, $cartItems) {
             $total = 0;

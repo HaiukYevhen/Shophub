@@ -15,5 +15,8 @@
     <a href="{{ route('admin.categories.index') }}">
         Manage Categories
     </a>
+    
+    <br>
+    <a href="{{ route('admin.products.index') }}">Manage Products</a>
 </body>
 </html>
