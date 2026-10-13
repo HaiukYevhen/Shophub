@@ -104,5 +104,7 @@
     "Confirm Password": "Підтвердьте пароль",
     "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "Дякуємо за реєстрацію! Перш ніж розпочати, будь ласка, підтвердьте свою електронну адресу, перейшовши за посиланням, яке ми щойно надіслали вам. Якщо ви не отримали листа, ми з радістю надішлемо його ще раз.",
     "Password": "Пароль",
-    "Remember me": "Пам'ятай мене"
+    "Remember me": "Пам'ятай мене",
+    "Order Confirmation": "Підтвердження замовлення",
+    "Thank you for your order!": "Дякуємо за ваше замовлення!"
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -71,7 +73,7 @@ class OrderController extends Controller
             }
         }
 
-        DB::transaction(function () use ($validated, $cartItems) {
+        $order = DB::transaction(function () use ($validated, $cartItems) {
             $total = 0;
 
             foreach ($cartItems as $cartItem) {
@@ -108,7 +110,14 @@ class OrderController extends Controller
             }
 
             CartItem::where('user_id', auth()->id())->delete();
+
+            return $order;
         });
+        
+        $order->load('items.product');
+
+        Mail::to($order->customer_email)
+            ->queue(new OrderConfirmation($order));
 
         return redirect()
             ->route('cart.index')
