@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel</title>
+    <title>{{ __('Admin Panel') }}</title>
 </head>
 <body>
-    <h1>Admin Panel</h1>
+    <h1>{{ __('Admin Panel') }}</h1>
 
-    <p>Welcome, {{ auth()->user()->name }}!</p>
-    <p>You have access to the admin panel.</p>
+    <p>{{ __('Welcome') }}, {{ auth()->user()->name }}!</p>
+    <p>{{ __('You have access to the admin panel.') }}</p>
 
-    <h2>Management</h2>
+    <h2>{{ __('Management') }}</h2>
 
     <a href="{{ route('admin.categories.index') }}">
-        Manage Categories
+        {{ __('Manage Categories') }}
     </a>
-    
+
     <br>
-    <a href="{{ route('admin.products.index') }}">Manage Products</a>
+
+    <a href="{{ route('admin.products.index') }}">
+        {{ __('Manage Products') }}
+    </a>
 </body>
 </html>

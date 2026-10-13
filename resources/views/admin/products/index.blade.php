@@ -1,40 +1,41 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Products</title>
+    <title>{{ __('Manage Products') }}</title>
 </head>
 <body>
-    <h1>Manage Products</h1>
+    <h1>{{ __('Manage Products') }}</h1>
 
-    <a href="{{ route('admin.index') }}">Admin Panel</a>
+    <a href="{{ route('admin.index') }}">{{ __('Admin Panel') }}</a>
     |
-    <a href="{{ route('admin.products.create') }}">Create Product</a>
+    <a href="{{ route('admin.products.create') }}">{{ __('Create Product') }}</a>
 
     <hr>
 
     @if (session('success'))
-        <p>{{ session('success') }}</p>
+        <p>{{ __(session('success')) }}</p>
     @endif
 
     @if (session('error'))
-        <p>{{ session('error') }}</p>
+        <p>{{ __(session('error')) }}</p>
     @endif
 
     @if ($products->isEmpty())
-        <p>No products found.</p>
+        <p>{{ __('No products found.') }}</p>
     @else
         @foreach ($products as $product)
             <div>
                 <h2>{{ $product->name }}</h2>
 
-                <p>Category: {{ $product->category->name }}</p>
-                <p>Slug: {{ $product->slug }}</p>
-                <p>Price: ${{ $product->price }}</p>
-                <p>Stock: {{ $product->stock }}</p>
+                <p>{{ __('Category') }}: {{ $product->category->name }}</p>
+                <p>{{ __('Slug') }}: {{ $product->slug }}</p>
+                <p>{{ __('Price') }}: ${{ $product->price }}</p>
+                <p>{{ __('Stock') }}: {{ $product->stock }}</p>
+
                 <p>
-                    Status: {{ $product->is_active ? 'Active' : 'Inactive' }}
+                    {{ __('Status') }}:
+                    {{ $product->is_active ? __('Active') : __('Inactive') }}
                 </p>
 
                 @if ($product->description)
@@ -42,7 +43,7 @@
                 @endif
 
                 <a href="{{ route('admin.products.edit', $product) }}">
-                    Edit
+                    {{ __('Edit') }}
                 </a>
 
                 <form
@@ -53,7 +54,7 @@
                     @csrf
                     @method('DELETE')
 
-                    <button type="submit">Delete</button>
+                    <button type="submit">{{ __('Delete') }}</button>
                 </form>
             </div>
 

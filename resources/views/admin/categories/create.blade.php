@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Create Category</title>
+    <title>{{ __('Create Category') }}</title>
 </head>
 <body>
-    <h1>Create Category</h1>
+    <h1>{{ __('Create Category') }}</h1>
 
     <form method="POST" action="{{ route('admin.categories.store') }}">
         @csrf
 
         <div>
-            <label for="name">Name:</label>
+            <label for="name">{{ __('Name') }}:</label>
 
             <input
                 type="text"
@@ -29,7 +29,7 @@
         <br>
 
         <div>
-            <label for="slug">Slug:</label>
+            <label for="slug">{{ __('Slug') }}:</label>
 
             <input
                 type="text"
@@ -47,7 +47,7 @@
         <br>
 
         <div>
-            <label for="description">Description:</label>
+            <label for="description">{{ __('Description') }}:</label>
 
             <textarea
                 id="description"
@@ -61,13 +61,13 @@
 
         <br>
 
-        <button type="submit">Create Category</button>
+        <button type="submit">{{ __('Create Category') }}</button>
     </form>
 
     <br>
 
     <a href="{{ route('admin.categories.index') }}">
-        Back to Categories
+        {{ __('Back to Categories') }}
     </a>
 </body>
 </html>

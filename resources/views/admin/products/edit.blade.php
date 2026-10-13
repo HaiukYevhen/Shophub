@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Product</title>
+    <title>{{ __('Edit Product') }}</title>
 </head>
 <body>
-    <h1>Edit Product</h1>
+    <h1>{{ __('Edit Product') }}</h1>
 
     <form
         method="POST"
@@ -16,7 +15,7 @@
         @method('PUT')
 
         <div>
-            <label for="category_id">Category:</label>
+            <label for="category_id">{{ __('Category') }}:</label>
 
             <select id="category_id" name="category_id" required>
                 @foreach ($categories as $category)
@@ -37,7 +36,7 @@
         <br>
 
         <div>
-            <label for="name">Name:</label>
+            <label for="name">{{ __('Name') }}:</label>
             <input
                 type="text"
                 id="name"
@@ -54,7 +53,7 @@
         <br>
 
         <div>
-            <label for="slug">Slug:</label>
+            <label for="slug">{{ __('Slug') }}:</label>
             <input
                 type="text"
                 id="slug"
@@ -71,8 +70,11 @@
         <br>
 
         <div>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description">{{ old('description', $product->description) }}</textarea>
+            <label for="description">{{ __('Description') }}:</label>
+            <textarea
+                id="description"
+                name="description"
+            >{{ old('description', $product->description) }}</textarea>
 
             @error('description')
                 <p>{{ $message }}</p>
@@ -82,7 +84,7 @@
         <br>
 
         <div>
-            <label for="price">Price:</label>
+            <label for="price">{{ __('Price') }}:</label>
             <input
                 type="number"
                 id="price"
@@ -101,7 +103,7 @@
         <br>
 
         <div>
-            <label for="stock">Stock:</label>
+            <label for="stock">{{ __('Stock') }}:</label>
             <input
                 type="number"
                 id="stock"
@@ -120,7 +122,7 @@
         <br>
 
         <div>
-            <label for="image">Image URL or path:</label>
+            <label for="image">{{ __('Image URL or path') }}:</label>
             <input
                 type="text"
                 id="image"
@@ -144,7 +146,7 @@
                 @checked(old('is_active', $product->is_active))
             >
 
-            <label for="is_active">Active</label>
+            <label for="is_active">{{ __('Active') }}</label>
 
             @error('is_active')
                 <p>{{ $message }}</p>
@@ -153,11 +155,13 @@
 
         <br>
 
-        <button type="submit">Update Product</button>
+        <button type="submit">{{ __('Update Product') }}</button>
     </form>
 
     <br>
 
-    <a href="{{ route('admin.products.index') }}">Back to Products</a>
+    <a href="{{ route('admin.products.index') }}">
+        {{ __('Back to Products') }}
+    </a>
 </body>
 </html>

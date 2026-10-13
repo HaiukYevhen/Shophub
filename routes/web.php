@@ -8,6 +8,23 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
+
+Route::get('/language/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'uk'], true)) {
+        abort(404);
+    }
+
+    Cookie::queue(
+        Cookie::make(
+            'locale',
+            $locale,
+            60 * 24 * 365
+        )
+    );
+
+    return redirect()->back();
+})->name('language.switch');
 
 Route::get('/', function () {
     return view('welcome');

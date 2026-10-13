@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>{{ __('Products') }}</title>
 </head>
 <body>
-    <h1>Products</h1>
+    <h1>{{ __('Products') }}</h1>
 
-    <h3>Categories</h3>
+    <h3>{{ __('Categories') }}</h3>
 
-    <a href="{{ route('products.index') }}">All</a>
+    <a href="{{ route('products.index') }}">{{ __('All Categories') }}</a>
 
     @foreach ($categories as $category)
         <a href="{{ route('products.index', ['category' => $category->slug]) }}">
@@ -28,16 +28,20 @@
                 </a>
             </h2>
 
-            <p>Category: {{ $product->category->name }}</p>
-            <p>Price: ${{ $product->price }}</p>
-            <p>Stock: {{ $product->stock }}</p>
+            <p>{{ __('Category') }}: {{ $product->category->name }}</p>
+            <p>{{ __('Price') }}: ${{ $product->price }}</p>
+            <p>{{ __('Stock') }}: {{ $product->stock }}</p>
+
+            <a href="{{ route('products.show', $product->slug) }}">
+                {{ __('View Details') }}
+            </a>
         </div>
 
         <hr>
     @endforeach
 
     @if ($products->isEmpty())
-        <p>No products found.</p>
+        <p>{{ __('No products found.') }}</p>
     @endif
 </body>
 </html>

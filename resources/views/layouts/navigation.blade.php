@@ -54,6 +54,20 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+
+                <div class="flex items-center gap-2 ms-4 text-gray-500 dark:text-gray-300">
+                    <a href="{{ route('language.switch', ['locale' => 'en']) }}"
+                       class="text-sm underline">
+                        EN
+                    </a>
+
+                    <span>|</span>
+
+                    <a href="{{ route('language.switch', ['locale' => 'uk']) }}"
+                       class="text-sm underline">
+                        UK
+                    </a>
+                </div>
             </div>
 
             <!-- Hamburger -->
@@ -80,6 +94,21 @@
             </x-responsive-nav-link>
         </div>
 
+        <div class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-300">
+            <span>{{ __('Language') }}:</span>
+
+            <a href="{{ route('language.switch', ['locale' => 'en']) }}"
+               class="underline">
+                EN
+            </a>
+
+            <span>|</span>
+
+            <a href="{{ route('language.switch', ['locale' => 'uk']) }}"
+               class="underline">
+                UK
+            </a>
+        </div>
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">

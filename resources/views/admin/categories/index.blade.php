@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Categories</title>
+    <title>{{ __('Manage Categories') }}</title>
 </head>
 <body>
-    <h1>Manage Categories</h1>
+    <h1>{{ __('Manage Categories') }}</h1>
 
-    <a href="{{ route('admin.index') }}">Admin Panel</a>
+    <a href="{{ route('admin.index') }}">{{ __('Admin Panel') }}</a>
     |
-    <a href="{{ route('admin.categories.create') }}">Create Category</a>
+    <a href="{{ route('admin.categories.create') }}">{{ __('Create Category') }}</a>
 
     <hr>
 
     @if (session('success'))
-        <p>{{ session('success') }}</p>
+        <p>{{ __(session('success')) }}</p>
     @endif
 
     @if (session('error'))
-        <p>{{ session('error') }}</p>
+        <p>{{ __(session('error')) }}</p>
     @endif
 
     @if ($categories->isEmpty())
-        <p>No categories found.</p>
+        <p>{{ __('No categories found.') }}</p>
     @else
         @foreach ($categories as $category)
             <div>
                 <h2>{{ $category->name }}</h2>
 
-                <p>Slug: {{ $category->slug }}</p>
+                <p>{{ __('Slug') }}: {{ $category->slug }}</p>
 
                 <p>
-                    Products: {{ $category->products_count }}
+                    {{ __('Products') }}: {{ $category->products_count }}
                 </p>
 
                 @if ($category->description)
@@ -39,7 +39,7 @@
                 @endif
 
                 <a href="{{ route('admin.categories.edit', $category) }}">
-                    Edit
+                    {{ __('Edit') }}
                 </a>
 
                 <form
@@ -51,7 +51,7 @@
                     @method('DELETE')
 
                     <button type="submit">
-                        Delete
+                        {{ __('Delete') }}
                     </button>
                 </form>
             </div>

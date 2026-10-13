@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>{{ __('Checkout') }}</title>
 </head>
 <body>
-    <h1>Checkout</h1>
+    <h1>{{ __('Checkout') }}</h1>
 
-    <h2>Your Order</h2>
+    <h2>{{ __('Your Order') }}</h2>
 
     @foreach ($cartItems as $cartItem)
         <div>
             <h3>{{ $cartItem->product->name }}</h3>
 
             <p>
-                Price: ${{ $cartItem->product->price }}
+                {{ __('Price') }}:
+                ${{ $cartItem->product->price }}
             </p>
 
             <p>
-                Quantity: {{ $cartItem->quantity }}
+                {{ __('Quantity') }}:
+                {{ $cartItem->quantity }}
             </p>
 
             <p>
-                Subtotal:
+                {{ __('Subtotal') }}:
                 ${{ $cartItem->product->price * $cartItem->quantity }}
             </p>
         </div>
@@ -31,13 +33,13 @@
         <hr>
     @endforeach
 
-    <h2>Customer Information</h2>
+    <h2>{{ __('Customer Information') }}</h2>
 
     <form method="POST" action="{{ route('orders.store') }}">
         @csrf
 
         <div>
-            <label for="customer_name">Name:</label>
+            <label for="customer_name">{{ __('Name') }}:</label>
 
             <input
                 type="text"
@@ -55,7 +57,7 @@
         <br>
 
         <div>
-            <label for="customer_email">Email:</label>
+            <label for="customer_email">{{ __('Email') }}:</label>
 
             <input
                 type="email"
@@ -73,7 +75,7 @@
         <br>
 
         <div>
-            <label for="shipping_address">Shipping address:</label>
+            <label for="shipping_address">{{ __('Shipping address') }}:</label>
 
             <textarea
                 id="shipping_address"
@@ -88,11 +90,11 @@
 
         <br>
 
-        <button type="submit">Place Order</button>
+        <button type="submit">{{ __('Place Order') }}</button>
     </form>
 
     <br>
 
-    <a href="{{ route('cart.index') }}">Back to cart</a>
+    <a href="{{ route('cart.index') }}">{{ __('Back to cart') }}</a>
 </body>
 </html>

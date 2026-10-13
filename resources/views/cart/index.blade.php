@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+    <title>{{ __('Cart') }}</title>
 </head>
 <body>
-    <h1>Your Cart</h1>
+    <h1>{{ __('Your Cart') }}</h1>
 
     @if (session('success'))
-        <p>{{ session('success') }}</p>
+        <p>{{ __(session('success')) }}</p>
     @endif
 
     @if (session('error'))
-        <p>{{ session('error') }}</p>
+        <p>{{ __(session('error')) }}</p>
     @endif
 
     @if ($cartItems->isEmpty())
-        <p>Your cart is empty.</p>
-        <a href="{{ route('products.index') }}">Continue shopping</a>
+        <p>{{ __('Your cart is empty.') }}</p>
+        <a href="{{ route('products.index') }}">{{ __('Continue shopping') }}</a>
     @else
         @foreach ($cartItems as $cartItem)
             <div>
@@ -28,8 +28,8 @@
                     </a>
                 </h2>
 
-                <p>Price: ${{ $cartItem->product->price }}</p>
-                <p>Quantity: {{ $cartItem->quantity }}</p>
+                <p>{{ __('Price') }}: ${{ $cartItem->product->price }}</p>
+                <p>{{ __('Quantity') }}: {{ $cartItem->quantity }}</p>
 
                 <form method="POST" action="{{ route('cart.update', $cartItem) }}">
                     @csrf
@@ -43,22 +43,21 @@
                         max="{{ $cartItem->product->stock }}"
                     >
 
-                    <button type="submit">Update</button>
+                    <button type="submit">{{ __('Update') }}</button>
                 </form>
 
                 <form method="POST" action="{{ route('cart.remove', $cartItem) }}">
                     @csrf
                     @method('DELETE')
 
-                    <button type="submit">Remove</button>
+                    <button type="submit">{{ __('Remove') }}</button>
                 </form>
             </div>
 
             <hr>
         @endforeach
 
-        <a href="{{ route('orders.create') }}">Proceed to Checkout</a>
-        
+        <a href="{{ route('orders.create') }}">{{ __('Proceed to Checkout') }}</a>
     @endif
 </body>
 </html>
