@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,13 @@ class OrderController extends Controller
             }
 
             if ($cartItem->product->stock < $cartItem->quantity) {
+                Log::warning('Order creation blocked due to insufficient stock.', [
+                    'user_id' => auth()->id(),
+                    'product_id' => $cartItem->product_id,
+                    'requested_quantity' => $cartItem->quantity,
+                    'available_stock' => $cartItem->product->stock,
+                ]);
+                
                 return redirect()
                     ->route('cart.index')
                     ->with(
@@ -118,6 +126,12 @@ class OrderController extends Controller
 
         Mail::to($order->customer_email)
             ->queue(new OrderConfirmation($order));
+        
+        Log::info('Order created successfully.', [
+            'order_id' => $order->id,
+            'user_id' => $order->user_id,
+            'total' => $order->total,
+        ]);    
 
         return redirect()
             ->route('cart.index')
