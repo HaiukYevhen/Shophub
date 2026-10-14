@@ -29,7 +29,11 @@
             </h2>
 
             <p>{{ __('Category') }}: {{ $product->category->name }}</p>
-            <p>{{ __('Price') }}: ${{ $product->price }}</p>
+            <p>{{ __('Price') }}: ${{ $product->price }}
+                @if ($exchangeRate !== null)
+                    ≈ ₴{{ number_format((float) $product->price * $exchangeRate, 2) }}
+                @endif
+            </p>
             <p>{{ __('Stock') }}: {{ $product->stock }}</p>
 
             <a href="{{ route('products.show', $product->slug) }}">

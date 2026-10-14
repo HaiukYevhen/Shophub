@@ -23,6 +23,9 @@
     <p>
         <strong>{{ __('Price') }}:</strong>
         ${{ $product->price }}
+        @if ($exchangeRate !== null)
+            ≈ ₴{{ number_format((float) $product->price * $exchangeRate, 2) }}
+        @endif
     </p>
 
     <p>

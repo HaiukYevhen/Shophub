@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\ExchangeRateService;
 use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
-   public function index()
+   public function index(ExchangeRateService $exchangeRateService)
     {
         $category = request('category');
 
@@ -52,11 +53,27 @@ class ProductController extends Controller
         $categories = collect($cachedCategories)
             ->map(fn ($category) => (object) $category);
 
-        return view('products.index', compact('products', 'categories'));
+        $exchangeRate = null;
+
+        try {
+            $exchangeRate = $exchangeRateService->getUsdToUahRate();
+        } catch (\RuntimeException $exception) {
+            // Keep the product catalog available if the API is unavailable.
+        }
+
+        return view('products.index', compact('products', 'categories', 'exchangeRate'));
     }
 
-    public function show(Product $product)
+    public function show(Product $product, ExchangeRateService $exchangeRateService)
     {
-        return view('products.show', compact('product'));
+        $exchangeRate = null;
+
+        try {
+            $exchangeRate = $exchangeRateService->getUsdToUahRate();
+        } catch (\RuntimeException $exception) {
+            // Keep the product page available if the API is unavailable.
+        }
+
+        return view('products.show', compact('product', 'exchangeRate'));
     }
 }
