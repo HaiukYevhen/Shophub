@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Support\ProductCache;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
 
 class CategoryController extends Controller
 {
@@ -33,6 +35,8 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
+        ProductCache::clear();
+
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category created successfully.');
@@ -58,6 +62,8 @@ class CategoryController extends Controller
 
         $category->update($validated);
 
+        ProductCache::clear();
+
         return redirect()
             ->route('admin.categories.index')
             ->with('success', 'Category updated successfully.');
@@ -73,6 +79,8 @@ class CategoryController extends Controller
         }
 
         $category->delete();
+
+        ProductCache::clear();
 
         return redirect()
             ->route('admin.categories.index')

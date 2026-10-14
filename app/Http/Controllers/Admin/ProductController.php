@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Support\ProductCache;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -43,6 +44,8 @@ class ProductController extends Controller
 
         Product::create($validated);
 
+        ProductCache::clear();
+
         return redirect()
             ->route('admin.products.index')
             ->with('success', 'Product created successfully.');
@@ -76,6 +79,8 @@ class ProductController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         $product->update($validated);
+        
+        ProductCache::clear();
 
         return redirect()
             ->route('admin.products.index')
@@ -92,6 +97,8 @@ class ProductController extends Controller
         }
 
         $product->delete();
+
+        ProductCache::clear();
 
         return redirect()
             ->route('admin.products.index')
