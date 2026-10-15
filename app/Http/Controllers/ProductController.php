@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Services\ExchangeRateService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -60,6 +61,20 @@ class ProductController extends Controller
                 return $product;
             })
             ->values();
+        
+        $perPage = 12;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $products = new LengthAwarePaginator(
+            $products->forPage($currentPage, $perPage)->values(),
+            $products->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );    
 
         $cachedCategories = Cache::remember(
             'categories.all',
