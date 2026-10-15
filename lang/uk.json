@@ -106,5 +106,11 @@
     "Password": "Пароль",
     "Remember me": "Пам'ятай мене",
     "Order Confirmation": "Підтвердження замовлення",
-    "Thank you for your order!": "Дякуємо за ваше замовлення!"
+    "Thank you for your order!": "Дякуємо за ваше замовлення!",
+    "Search": "Пошук",
+    "Search products...": "Пошук товарів...",
+    "Minimum Price": "Мінімальна ціна",
+    "Maximum Price": "Максимальна ціна",
+    "Apply Filters": "Застосувати фільтри",
+    "Reset": "Скинути"
 }

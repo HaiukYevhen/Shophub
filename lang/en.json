@@ -106,5 +106,11 @@
     "Password": "Password",
     "Remember me": "Remember me",
     "Order Confirmation": "Order Confirmation",
-    "Thank you for your order!": "Thank you for your order!"
+    "Thank you for your order!": "Thank you for your order!",
+    "Search": "Search",
+    "Search products...": "Search products...",
+    "Minimum Price": "Minimum Price",
+    "Maximum Price": "Maximum Price",
+    "Apply Filters": "Apply Filters",
+    "Reset": "Reset"
 }

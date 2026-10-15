@@ -8,9 +8,55 @@
 <body>
     <h1>{{ __('Products') }}</h1>
 
+    <form method="GET" action="{{ route('products.index') }}">
+        <div>
+            <label for="search">{{ __('Search') }}:</label>
+            <input
+                type="text"
+                id="search"
+                name="search"
+                value="{{ $search }}"
+                placeholder="{{ __('Search products...') }}"
+            >
+        </div>
+
+        <div>
+            <label for="min_price">{{ __('Minimum Price') }}:</label>
+            <input
+                type="number"
+                id="min_price"
+                name="min_price"
+                min="0"
+                step="0.01"
+                value="{{ $minPrice }}"
+            >
+        </div>
+
+        <div>
+            <label for="max_price">{{ __('Maximum Price') }}:</label>
+            <input
+                type="number"
+                id="max_price"
+                name="max_price"
+                min="0"
+                step="0.01"
+                value="{{ $maxPrice }}"
+            >
+        </div>
+
+        @if (request('category'))
+            <input type="hidden" name="category" value="{{ request('category') }}">
+        @endif
+
+        <button type="submit">{{ __('Apply Filters') }}</button>
+        <a href="{{ route('products.index') }}">{{ __('Reset') }}</a>
+    </form>
+
+    <hr>
+
     <h3>{{ __('Categories') }}</h3>
 
-    <a href="{{ route('products.index') }}">{{ __('All Categories') }}</a>
+    <a href="{{ route('products.index', request()->except('category')) }}">{{ __('All Categories') }}</a>
 
     @foreach ($categories as $category)
         <a href="{{ route('products.index', ['category' => $category->slug]) }}">

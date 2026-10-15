@@ -12,6 +12,9 @@ class ProductController extends Controller
    public function index(ExchangeRateService $exchangeRateService)
     {
         $category = request('category');
+        $search = trim(request('search', ''));
+        $minPrice = request('min_price');
+        $maxPrice = request('max_price');
 
         $cachedProducts = Cache::remember(
             'products.all',
@@ -25,9 +28,27 @@ class ProductController extends Controller
         );
 
         $products = collect($cachedProducts)
-            ->filter(function ($product) use ($category) {
-                return !$category ||
-                    ($product['category']['slug'] ?? null) === $category;
+            ->filter(function ($product) use ($category, $search, $minPrice, $maxPrice) {
+                if ($category && ($product['category']['slug'] ?? null) !== $category) {
+                    return false;
+                }
+
+                if ($search && !str_contains(
+                    mb_strtolower($product['name']),
+                    mb_strtolower($search)
+                )) {
+                    return false;
+                }
+
+                if ($minPrice !== null && $minPrice !== '' && $product['price'] < (float) $minPrice) {
+                    return false;
+                }
+
+                if ($maxPrice !== null && $maxPrice !== '' && $product['price'] > (float) $maxPrice) {
+                    return false;
+                }
+
+                return true;
             })
             ->map(function ($product) {
                 $product = (object) $product;
@@ -61,7 +82,7 @@ class ProductController extends Controller
             // Keep the product catalog available if the API is unavailable.
         }
 
-        return view('products.index', compact('products', 'categories', 'exchangeRate'));
+        return view('products.index', compact('products', 'categories', 'exchangeRate', 'search', 'minPrice', 'maxPrice'));
     }
 
     public function show(Product $product, ExchangeRateService $exchangeRateService)
